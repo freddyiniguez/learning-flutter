@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 
-import './product_manager.dart';
+import './pages/home.dart';
 
 // NOTE: Use the following syntax when there is just a line of code.
 // main() => runApp(MyApp());
@@ -28,17 +28,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // NOTE: The following line is used to debug UI.
-        // debugShowMaterialGrid: true,
-        theme: ThemeData(
-            brightness: Brightness.light,
-            primarySwatch: Colors.deepOrange,
-            accentColor: Colors.deepPurple),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('EasyList'),
-          ),
-          body: ProductManager(startingProduct: 'Food Tester'),
-        ));
+      // NOTE: The following line is used to debug UI.
+      // debugShowMaterialGrid: true,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.deepOrange,
+        accentColor: Colors.deepPurple,
+      ),
+      home: HomePage(),
+    );
   }
 }

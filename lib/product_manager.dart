@@ -8,8 +8,9 @@ class ProductManager extends StatefulWidget {
 
   /// Constructor
   // NOTE: Using curly braces let you name the variable when passed, also
-  // with a pre-defined value.
-  ProductManager({this.startingProduct = 'Sweets Testers'});
+  // with a pre-defined value, just as follows:
+  // ProductManager({this.startingProduct = 'Sweets Testers'});
+  ProductManager({this.startingProduct});
 
   /// Function: State
   @override
@@ -19,6 +20,7 @@ class ProductManager extends StatefulWidget {
 }
 
 class _ProductManagerState extends State<ProductManager> {
+  /// Variables
   // NOTE: this property is final, that means we can't assign a new value, but
   // does modified the existing one (we can use the add function).
   // If we would like to never modified the list, we should use const.
@@ -33,7 +35,9 @@ class _ProductManagerState extends State<ProductManager> {
     super.initState();
 
     // NOTE: Using widget we access to the Widget properties the State belongs.
-    _products.add(widget.startingProduct);
+    if (widget.startingProduct != null) {
+      _products.add(widget.startingProduct);
+    }
   }
 
   /// Function: AddProduct
@@ -55,7 +59,8 @@ class _ProductManagerState extends State<ProductManager> {
           // the button is pressed.
           margin: EdgeInsets.all(10.0),
           child: ProductControl(_addProduct)),
-      Products(_products)
+      Expanded(
+          child: Products(_products)),
     ]);
   }
 }

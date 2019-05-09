@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProductControl extends StatelessWidget {
-  // NOTE: The type of this variables is a function, from a Stateful widget.
+  /// Variables
+  // NOTE: The type of this variables is a function, received from a Stateful
+  // widget.
   final Function addProduct;
 
   /// Constructor
