@@ -5,9 +5,10 @@ class Products extends StatelessWidget {
   final List<String> products;
 
   /// Constructor
-  /// This is also a shortcut to assign to the class variable the
-  /// value the constructor is receiving.
-  Products(this.products);
+  // NOTE: This is also a shortcut to assign to the class variable the
+  // value the constructor is receiving.
+  // Also, you can assign a pre-defined value.
+  Products([this.products = const []]);
 
   ///Build
   /// This methods returns the lists of products on a Column widget.
