@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 
-import './pages/home.dart';
+import './pages/auth.dart';
 
 // NOTE: Use the following syntax when there is just a line of code.
 // main() => runApp(MyApp());
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
         accentColor: Colors.deepPurple,
       ),
-      home: HomePage(),
+      home: AuthPage(),
     );
   }
 }

@@ -4,7 +4,7 @@ import './products.dart';
 import './product_control.dart';
 
 class ProductManager extends StatefulWidget {
-  final String startingProduct;
+  final Map<String, String> startingProduct;
 
   /// Constructor
   // NOTE: Using curly braces let you name the variable when passed, also
@@ -25,7 +25,7 @@ class _ProductManagerState extends State<ProductManager> {
   // does modified the existing one (we can use the add function).
   // If we would like to never modified the list, we should use const.
   // final List<String> _products = const []; <-- this never changes list.
-  final List<String> _products = [];
+  final List<Map<String, String>> _products = [];
 
   /// Function: Init
   @override
@@ -41,11 +41,18 @@ class _ProductManagerState extends State<ProductManager> {
   }
 
   /// Function: AddProduct
-  void _addProduct(String product) {
+  void _addProduct(Map<String, String> product) {
     // NOTE: This is how it actually refresh the products list,
     // using the setState function.
     setState(() {
       _products.add(product);
+    });
+  }
+
+  /// Function:
+  void _deleteProduct(int index){
+    setState(() {
+      _products.removeAt(index);
     });
   }
 
@@ -60,7 +67,7 @@ class _ProductManagerState extends State<ProductManager> {
           margin: EdgeInsets.all(10.0),
           child: ProductControl(_addProduct)),
       Expanded(
-          child: Products(_products)),
+          child: Products(_products, deleteProduct: _deleteProduct)),
     ]);
   }
 }

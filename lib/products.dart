@@ -4,13 +4,11 @@ import 'pages/product.dart';
 
 class Products extends StatelessWidget {
   /// Variables
-  final List<String> products;
+  final List<Map<String, String>> products;
+  final Function deleteProduct;
 
   /// Constructor
-  // NOTE: This is also a shortcut to assign to the class variable the
-  // value the constructor is receiving.
-  // Also, you can assign a pre-defined value.
-  Products([this.products = const []]);
+  Products(this.products, { this.deleteProduct });
 
   /// Function: _buildProductItem
   // This method creates as many items as needed.
@@ -21,19 +19,28 @@ class Products extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset('assets/food.jpg'),
-          Text(products[index]),
+          Image.asset(products[index]['image']),
+          Text(products[index]['title']),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.push<bool>(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => ProductPage('Sweet Tester', 'assets/food.jpg'),
+                        builder: (BuildContext context) => ProductPage(
+                              products[index]['title'],
+                              products[index]['image'],
+                            ),
                       ),
-                    ),
+                  // NOTE: If we received a true value, that means the user
+                  // clicked on the delete button.
+                    ).then((bool value) {
+                      if (value){
+                        deleteProduct(index);
+                      }
+                }),
               ),
             ],
           ),
