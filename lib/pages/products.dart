@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../product_manager.dart';
-import './products_admin.dart';
 
 class ProductsPage extends StatelessWidget {
+  /// Variables
+  final List<Map<String, String>> products;
+  final Function addProduct;
+  final Function deleteProduct;
+
+  /// Constructor
+  ProductsPage(this.products, this.addProduct, this.deleteProduct);
+
+  /// Function: Build
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +28,8 @@ class ProductsPage extends StatelessWidget {
             ListTile(
               title: Text('Manage Products'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => ProductsAdminPage()),
-                );
+                // NOTE: You can use the Navigator.pushReplacement).
+                Navigator.pushReplacementNamed(context, '/admin');
               },
             )
           ],
@@ -35,7 +40,7 @@ class ProductsPage extends StatelessWidget {
       ),
       // To test conditionals, we removed the startingProduct
       // body: ProductManager(startingProduct: 'Food Tester')
-      body: ProductManager(),
+      body: ProductManager(products, addProduct, deleteProduct),
     );
   }
 }

@@ -1,41 +1,77 @@
-// NOTE: Dart style guide:
-// https://www.dartlang.org/guides/language/effective-dart/style
-
-// NOTE: Flutter is
-// 1) An SDK
-// 2) A Dart Framework
-
 import 'package:flutter/material.dart';
-//import 'package:flutter/rendering.dart';
 
-import './pages/auth.dart';
+import './pages/product.dart';
+import './pages/products.dart';
+import './pages/products_admin.dart';
 
-// NOTE: Use the following syntax when there is just a line of code.
-// main() => runApp(MyApp());
+main() => runApp(MyApp());
 
-main() {
-  // NOTE: The following lines of code allow us to debug the UI.
-  // Rendering package needs to be imported.
-  //debugPaintSizeEnabled = true;
-  //debugPaintBaselinesEnabled = true;
-  //debugPaintPointersEnabled = true;
-
-  runApp(MyApp());
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
 }
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
+  /// Variables
+  List<Map<String, String>> _products = [];
+
+  /// Function: AddProduct
+  void _addProduct(Map<String, String> product) {
+    // NOTE: This is how it actually refresh the products list,
+    // using the setState function.
+    setState(() {
+      _products.add(product);
+    });
+  }
+
+  /// Function: DeleteProduct
+  void _deleteProduct(int index) {
+    setState(() {
+      _products.removeAt(index);
+    });
+  }
+
   /// Function: Build
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // NOTE: The following line is used to debug UI.
-      // debugShowMaterialGrid: true,
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.deepOrange,
         accentColor: Colors.deepPurple,
       ),
-      home: AuthPage(),
+      //home: AuthPage(),
+      routes: {
+        '/': (BuildContext context) =>
+            ProductsPage(_products, _addProduct, _deleteProduct),
+        '/admin': (BuildContext context) => ProductsAdminPage(),
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        final List<String> pathElements = settings.name.split('/');
+
+        if (pathElements[0] != '') {
+          return null;
+        }
+
+        if (pathElements[1] == 'product') {
+          final int index = int.parse(pathElements[2]);
+          return MaterialPageRoute<bool>(
+            builder: (BuildContext context) => ProductPage(
+                  _products[index]['title'],
+                  _products[index]['image'],
+                ),
+          );
+        }
+
+        return null;
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>
+                ProductsPage(_products, _addProduct, _deleteProduct));
+      },
     );
   }
 }

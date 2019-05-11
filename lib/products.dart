@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'pages/product.dart';
-
 class Products extends StatelessWidget {
   /// Variables
   final List<Map<String, String>> products;
@@ -26,17 +24,9 @@ class Products extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
-                onPressed: () => Navigator.push<bool>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ProductPage(
-                              products[index]['title'],
-                              products[index]['image'],
-                            ),
-                      ),
-                  // NOTE: If we received a true value, that means the user
-                  // clicked on the delete button.
-                    ).then((bool value) {
+                onPressed: () => Navigator.pushNamed<bool>(
+                  context, '/product/' + index.toString()
+                ).then((bool value) {
                       if (value){
                         deleteProduct(index);
                       }

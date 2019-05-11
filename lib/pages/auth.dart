@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './products.dart';
-
 class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,11 +10,7 @@ class AuthPage extends StatelessWidget {
             child: Text('LOGIN'),
             onPressed: () {
               // The current page complete gets replaced with the indicated one.
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ProductsPage()),
-              );
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
         ));
